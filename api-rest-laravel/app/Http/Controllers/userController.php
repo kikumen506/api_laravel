@@ -11,6 +11,31 @@ class userController extends Controller
     }
 
     public function register(Request $request){
+
+        //Recoger los datos del usuario por POST
+        $json = $request->input('json', null);
+        $params = json_decode($json);  //saca objeto
+        $params_array = json_decode($json, true);  //saca un array
+
+        var_dump($params_array);
+
+        die();
+
+        //Validar datos
+
+
+
+        //Cifrar la contraseña
+
+
+
+        //Comprobar usuario(duplicado)
+
+
+
+        //Crear al usuario
+
+
         $data = array(
             'status' => 'error',
             'code' => 404,
