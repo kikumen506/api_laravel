@@ -80,6 +80,8 @@ class userController extends Controller
     }
 
     public function logIn(Request $request){
-        return "Accion de logIn de usuario";
+
+        $jwtAuth = new \jwtAuth();
+        return $jwtAuth->signUp();
     }
 }
