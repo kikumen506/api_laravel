@@ -46,7 +46,7 @@ class userController extends Controller
 
                 //VALIDACION CORRECTA
                 //Cifrar la contraseña
-                $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost' => 4]);
+                $pwd = hash('sha256', $params->password);
 
 
                 //Crear al usuario
@@ -64,7 +64,8 @@ class userController extends Controller
                 $data = array(
                     'status' => 'success',
                     'code' => 200,
-                    'message' => 'Usuario creado correctamente'
+                    'message' => 'Usuario creado correctamente',
+                    'user' => $user
                 );
             }
         } else {
@@ -82,6 +83,17 @@ class userController extends Controller
     public function logIn(Request $request){
 
         $jwtAuth = new \jwtAuth();
-        return $jwtAuth->signUp();
+
+        $email = 'kikeweb@gmail.com';
+        $password = 'admin1432';
+
+        $pwd = hash('sha256', $password);
+
+        //var_dump($pwd);die();
+
+         
+
+
+        return response() -> json($jwtAuth->signUp($email, $pwd, true), 200);
     }
 }

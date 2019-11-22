@@ -14,7 +14,7 @@ class jwtAuth{
         $this->key = 'key_para_token_crypt0_2o19';
     }
 
-    public function signUp($email, $password){
+    public function signUp($email, $password, $getToken = null){
         // Buscar al usuario con sus credenciales
         $user = User::where([
             'email' => $email,
@@ -40,16 +40,28 @@ class jwtAuth{
             );
 
             $jwt = JWT::encode($token, $this->key, 'HS256');
+            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
+
+            //Devolver los datos codificados o el token en funcion de un parametro
+            if (is_null($getToken)) {
+                $data = $jwt;
+            } else {
+                $data = $decoded;
+            }
+
         } else {
+
             $data = array(
-                'status' => 'error'
+                'status' => 'error',
+                'message' => 'LogIn incorrecto'
             );
+
         }
 
-        //Devolver los datos codificados o el token en funcion de un parametro
+        
 
 
-        return 'Metodo de la clase JWTAUTH. ';
+        return $data;
     }
 
 }
